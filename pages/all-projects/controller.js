@@ -1,7 +1,12 @@
-const getProjectOutlinePage = async (req, res) => {
+const  { getMapAccessToken } = require('../../services/get-map-token')
+
+const getAllProjectsPage = async (req, res) => {
     try {
-        res.render('_index/view.njk', {
-            pageTitle: 'Project outline map',
+        const mapAccessToken = await getMapAccessToken();
+        res.render('all-projects/view.njk', {
+            title: 'All projects',
+            pageTitle: 'Example of an all projects map implementation',
+            mapAccessToken
         });
     } catch (error) {
         console.error('Error rendering page:', error);
@@ -9,4 +14,4 @@ const getProjectOutlinePage = async (req, res) => {
     }
 }
 
-module.exports = { getProjectOutlinePage }
+module.exports = { getAllProjectsPage }

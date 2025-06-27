@@ -1,7 +1,7 @@
-const getAllProjectsPage = async (req, res) => {
+const getProjectOutlinePage = async (req, res) => {
     try {
         res.render('_index/view.njk', {
-            pageTitle: 'Interactive map of all projects',
+            pageTitle: 'Project outline map',
         });
     } catch (error) {
         console.error('Error rendering page:', error);
@@ -9,4 +9,4 @@ const getAllProjectsPage = async (req, res) => {
     }
 }
 
-module.exports = { getAllProjectsPage }
+module.exports = { getProjectOutlinePage }
