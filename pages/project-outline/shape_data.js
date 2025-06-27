@@ -1,4 +1,3 @@
-const {getMapAccessToken} = require("../../services/get-map-token");
 const shapeDataGeoJSON = {
     "geometry": {
         "type": "MultiPolygon",
@@ -14440,22 +14439,3 @@ const shapeDataGeoJSON = {
         "infrastructure-project-decision": "Pre Application"
     }
 };
-
-
-
-const getProjectOutlinePage = async (req, res) => {
-    try {
-        const mapAccessToken = await getMapAccessToken();
-        res.render('project-outline/view.njk', {
-            pageTitle: 'Botley West Solar Farm - Oxford',
-            title: 'Project Outline Example',
-            mapAccessToken,
-            shapeDataGeoJSON: shapeDataGeoJSON
-        });
-    } catch (error) {
-        console.error('Error rendering page:', error);
-        res.status(500)
-    }
-}
-
-module.exports = { getProjectOutlinePage }
