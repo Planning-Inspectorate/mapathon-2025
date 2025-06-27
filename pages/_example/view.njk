@@ -1,0 +1,72 @@
+{% extends "layouts/main.njk" %}
+
+
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">{{ pageTitle }}</h1>
+
+    {% if mapAccessToken %}
+
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+              integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+              crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+                integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+                crossorigin=""></script>
+
+        <style>
+            body {
+                margin:0; padding:0;
+            }
+            #os-map {
+                height:200px;
+            }
+        </style>
+
+
+        <div id="example-map" class="example-map__container">
+            <div id="os-map"></div>
+        </div>
+        <script>
+
+            const apiKey = 'aTVQwYmZylts5tALhRIUJAXauV7muuGW'
+            const mapAccessToken = '{{ mapAccessToken }}';
+
+            const mapOptions = {
+                minZoom: 7,
+                maxZoom: 20,
+                center: [51.450,-2.587],
+                zoom: 17,
+                maxBounds: [
+                    [ 49.528423, -10.76418 ],
+                    [ 61.331151, 1.9134116 ]
+                ],
+                attributionControl: false
+            };
+
+            const map = L.map('os-map', mapOptions);
+
+            const basemap = L.tileLayer('/api/map-tile/{z}/{x}/{y}', {
+                maxZoom: 20,
+                tileSize: 256
+            }).addTo(map);
+
+            const pinLocations = [
+                { lat: 51.450, lng: -2.586, popup: "Pin 1" },
+                { lat: 51.450, lng: -2.587, popup: "Pin 2" },
+                { lat: 51.450, lng: -2.59, popup: "Pin 3" }
+            ];
+
+            // Add markers to the map
+            pinLocations.forEach(location => {
+                L.marker([location.lat, location.lng])
+                    .addTo(map)
+                    .bindPopup(location.popup);
+            });
+
+
+        </script>
+    {% endif %}
+{% endblock %}
